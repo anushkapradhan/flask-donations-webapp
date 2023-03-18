@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helping Hands</title>
+    <!-- <style>
+      li {
+        display: inline;
+        margin-left: 20px;
+      }
+      nav {
+        position: fixed;
+        background-color: white;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 14px 16px;
+      }
+    </style> -->
+    <link href="/static/css/output.css" rel="stylesheet">
+</head>
+<body class="bg-orange-100 font-serif">
+  <!-- <nav>
+    <div>
+      <ul style="list-style-type: none; margin: 0; padding: 0;">
+        <li><a href="{{ url_for('landingPage') }}">Home</a></li>
+        <li><a class="active" href="{{ url_for('user_dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ url_for('user_details') }}">User Details</a></li>
+        <li><a href="{{ url_for('user_my_requests') }}">My Requests</a></li>
+        <li><a href="{{ url_for('user_logout') }}">Logout</a></li>
+      </ul>
+    </div>
+  </nav> -->
+<div class="relative z-10">
+  <header class="text-orange-100 body-font h-10">
+    <div class="fixed px-5 py-1 bg-orange-900 container mx-auto flex flex-wrap  flex-col md:flex-row items-center">
+      <a href="{{ url_for('landingPage') }}" class="hover:text-gray-900 flex title-font font-medium items-center text-white mb-4 md:mb-0">
+        <img src="/static/images/icons/icon.png" class="w-10 h-10 text-white p-2 bg-white rounded-full" viewBox="0 0 24 24" >
+
+        <span class="ml-3 text-xl">Helping Hands</span>
+      </a>
+      <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+        <a class="mr-5 hover:text-gray-900" href="{{ url_for('landingPage') }}">| Home |</a>
+        <a class="mr-5 hover:text-gray-900" href="{{ url_for('user_dashboard') }}">| Dashboard |</a>
+        <a class="mr-5 hover:text-gray-900" href="{{ url_for('user_my_requests') }}">| My Requests |</a>
+        <a class="mr-5 hover:text-gray-900" href="{{ url_for('user_details_update', id=current_user.id) }}">| Update Details |</a>
+        <a class="mr-5 hover:text-gray-900" href="{{ url_for('user_logout') }}">| Logout |</a>
+      </nav>
+      <!-- <div class="flex-shrink-0 w-10 h-10 rounded-full bg-white border border-orange-900 inline-flex items-center justify-center text-black  z-20"> -->
+      <!-- <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg> -->
+      <img src="/static/images/icons/user.png" class="w-5 h-5">
+      <p class="flex flex-wrap mr-20 ml-2 text-orange-100">{{ current_user.username }}</p>
+      <!-- </div> -->
+    </div>
+</header>
+</div>
+  
+<br>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        {% if category == "error" %}
+        <div id="alertDiv" class="mx-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">Something went wrong!</strong>
+          <span class="block sm:inline">{{ message }}</span>
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg onclick="document.getElementById('alertDiv').style.display='none'" class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title>
+              <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
+              </svg>
+          </span>
+      </div>
+        <!-- <div class="alert alert-danger alter-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div> -->
+        {% else %}
+        <div id="alertDiv" class="mx-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">Yayy!</strong>
+          <span class="block sm:inline">{{ message }}</span>
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg onclick="document.getElementById('alertDiv').style.display='none'" class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title>
+              <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
+              </svg>
+          </span>
+      </div>
+        <!-- <div class="alert alert-success alter-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div> -->
+        {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    
+    <div class="">{% block content %}{% endblock %}</div>
+
+
+    <footer  class="text-orange-900 body-font mt-44 object-bottom">
+      <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+        <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+          <img src="/static/images/icons/footerIcon.png" class="w-10 h-10 p-2 bg-orange-900 rounded-full" viewBox="0 0 24 24" >
+          <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-orange-900 rounded-full" viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg> -->
+          <span class="ml-3 text-xl">Helping Hands</span>
+        </a>
+        <p class="text-sm sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-orange-900 sm:py-2 sm:mt-0 mt-4">© 2022-2023 helpinghands —
+          <a href="" class="ml-1" rel="noopener noreferrer" target="_blank">@anushkapradhan</a>
+        </p>
+        <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start text-orange-900">
+          <a>
+            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+            </svg>
+          </a>
+          <a class="ml-3">
+            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+              <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+            </svg>
+          </a>
+          <a class="ml-3">
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+            </svg>
+          </a>
+          <a class="ml-3">
+            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+              <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+              <circle cx="4" cy="4" r="2" stroke="none"></circle>
+            </svg>
+          </a>
+        </span>
+      </div>
+    </footer>
+</body>
+</html>

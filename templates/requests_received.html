@@ -1,0 +1,108 @@
+{% extends "base_org.html" %} 
+{% block title %}Requests Received{% endblock %} 
+
+{% block content%}
+
+{% if check %}
+
+<div class="text-center text-xl py-8 text-orange-900">
+  <h3>Requests for {{ org.name }}</h3>
+</div>
+    {% for req in reqs %}
+
+    {% if org.id == req.org_id %}
+
+
+
+    <section class="text-gray-600 body-font">
+      <div class="container px-5 py-5 mx-auto">
+        <div class="flex flex-wrap -mx-4 -mb-10 text-center items-center">
+
+          {% if req.request_status != "Completed" %}
+          <div class="sm:w-1/2 mb-10 px-4">
+            <h2 class="title-font text-2xl font-medium text-green-500 mt-6">Request Received!</h2>
+            <span class=" text-gray-500 text-sm">{{ req.request_created }}</span>
+            <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{{ req.user_name }}</h2>
+            <p class="leading-relaxed text-base">Date: {{ req.pickup_date }} | Time: {{ req.pickup_time }} | Item: {{ req.pickup_item }}
+              <br>Contact: {{ req.user_contact }} | Email: {{ req.user_email }}
+              <br>Address: {{ req.user_address }}
+            </p>
+            <form method="POST" action="{{ url_for('change_request_status', id=req.id) }}" class="mt-2">
+              <label for="status">Status:</label>
+              <select name="status" id="status" class="ml-10 bg-orange-100 py-2 px-2 rounded">
+                  <option selected>{{ req.request_status }}</option>
+                  <option value="None">None</option>
+                  <option value="Processed">Processed</option>
+                  <option value="Completed">Completed</option>
+              </select>
+              <input type="submit" value="Change Status" class="ml-10 text-orange-50 bg-orange-900 hover:bg-orange-800 px-3 py-1 rounded-full" />
+          </form>
+          <a href="{{ url_for('user_request_delete', id=req.id) }}" class="mt-5 text-orange-50 bg-orange-900 hover:bg-red-500 inline-flex items-center px-3 py-1 rounded-full">
+            Cancel Request
+          </a>
+          </div>
+
+          
+          <div class="sm:w-1/2 mb-10 px-4">
+            <div class="rounded-lg h-24 overflow-hidden mx-64 items-center">
+              <img src="/static/images/icons/tick.png" height="50" width="50" class="object-center h-20 w-20">
+            </div>
+            <h2 class="title-font text-2xl font-medium text-orange-900 mt-6 mb-3">Request Processing!</h2>
+          </div>
+
+
+          {% elif req.request_status == "Completed" %}
+          <div class="sm:w-1/2 mb-10 px-4 ">
+            <div class="rounded-lg h-24 overflow-hidden mx-64 items-center">
+              <img src="/static/images/icons/tick.png" height="50" width="50" class="object-center h-20 w-20">
+            </div>
+            <h2 class="title-font text-2xl font-medium text-green-500 mt-6 mb-3">Completed!</h2>
+          </div>
+
+
+
+          <div class="sm:w-1/2 mb-10 px-4">
+            <h2 class="title-font text-2xl font-medium text-green-500 mt-6">Request Received!</h2>
+            <span class=" text-gray-500 text-sm">{{ req.request_created }}</span>
+            <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{{ req.user_name }}</h2>
+            <p class="leading-relaxed text-base">Date: {{ req.pickup_date }} | Time: {{ req.pickup_time }} | Item: {{ req.pickup_item }}
+              <br>Contact: {{ req.user_contact }} | Email: {{ req.user_email }}
+              <br>Address: {{ req.user_address }}
+            </p>
+            <form method="POST" action="{{ url_for('change_request_status', id=req.id) }}" class="mt-2">
+              <label for="status">Status:</label>
+              <select name="status" id="status" class="ml-10 bg-orange-100 py-2 px-2 rounded">
+                  <option selected>{{ req.request_status }}</option>
+                  <option value="None">None</option>
+                  <option value="Processed">Processed</option>
+                  <option value="Completed">Completed</option>
+              </select>
+              <input type="submit" value="Change Status" class="ml-10 text-orange-50 bg-orange-900 hover:bg-orange-800 px-3 py-1 rounded-full" />
+          </form>
+          <a href="{{ url_for('user_request_delete', id=req.id) }}" class="mt-5 text-orange-50 bg-orange-900 hover:bg-red-500 inline-flex items-center px-3 py-1 rounded-full">
+            Cancel Request
+          </a>
+          </div>
+
+
+          {% endif %}
+          <hr class="border-1 border-orange-900 w-full">
+
+        </div>
+      </div>
+    </section>
+    
+
+    {% endif %}
+    {% endfor %}
+
+{% else %}
+<div class="py-5 px-10 text-xl font-mono text-orange-900">
+  <div class="flex flex-col justify-center items-center mt-20">
+      <img src="/static/images/icons/emailorg.png" class="h-20 w-20 mb-10">
+  <p >Looks like <b class="text-2xl text-black">{{ org.name }}</b> received no requests!</p>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

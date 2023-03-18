@@ -1,0 +1,74 @@
+{% extends "base_org.html" %} 
+{% block title %}new post{% endblock %} 
+{% block content%}
+
+
+<!-- <h1>Create new post</h1> -->
+
+<section class="text-orange-900 body-font relative">
+    <div class="container px-5 py-10 mx-auto">
+      <div class="flex flex-col text-center w-full mb-12">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">What's in your mind?</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">These posts are visible to the users. You cannot edit posts once uploaded but can delete them.</p>
+      </div>
+
+      <form method="POST">
+        <div class="lg:w-1/2 md:w-2/3 mx-auto">
+            <div class="flex flex-wrap -m-2">
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label for="name" class="leading-7 text-sm text-black">Title</label>
+                  <input type="text" id="title" name="title" placeholder="Enter title" required class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-900 focus:border-orange-100 focus:bg-white focus:ring-2 focus:ring-orange-100 text-base outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+              </div>
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label for="picture" class="leading-7 text-sm text-black cursor-pointer">Picture (if any)</label>
+                  <input type="file" id="picture" name="picture" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-900 focus:border-orange-100 focus:bg-white focus:ring-2 focus:ring-orange-100 text-base outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                  <!-- <img src="/static/images/icons/typewriter.png" class="h-20 w-20 mx-60" > -->
+                  <!-- <input type="file" id="picture" name="picture" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-900 focus:border-orange-100 focus:bg-white focus:ring-2 focus:ring-orange-100 text-base outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> -->
+                </div>
+              </div>
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label for="message" class="leading-7 text-sm text-black">Content</label>
+                  <textarea type="text" id="content" name="content" placeholder="Start typing..." required class="resize-none h-32 w-full bg-orange-100 bg-opacity-50 rounded border border-orange-900 focus:border-orange-100 focus:bg-white focus:ring-2 focus:ring-orange-100 text-base outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></textarea>
+                </div>
+              </div>
+              <div class="p-2 w-full">
+                <button type="submit" name="submit_post" class="flex mx-auto text-orange-100 bg-orange-900 border-0 py-2 px-8 focus:outline-none hover:bg-orange-800 rounded-full text-lg">Post</button>
+              </div>
+            </div>
+          </div>
+      </form>
+      
+    </div>
+  </section>
+
+<!-- <form method="POST">
+    <div class="form-group">
+        <table cellpadding="30">
+            <tr>
+                <td><label for="title">TITLE*</label></td>
+                <td>
+                    <input size="30" type="text" id="title" name="title" class="form-control" placeholder="Enter title" required />
+                </td>
+            </tr>
+            <tr>
+                <td><label for="content">CONTENT*</label></td>
+                <td>
+                    <textarea cols="100" rows="10" type="text" id="content" name="content" class="form-control" placeholder="Start typing..." required></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="picture">PICTURE (optional)</label></td>
+                <td><input type="file" id="picture" name="picture" class="form-control"  /></td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="submit_post" value="POST"></td>
+            </tr>
+        </table>
+    </div>
+</form> -->
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base_user.html" %} 
+{% block title %}search{% endblock %} 
+{% block content%}
+
+
+<h1 class="flex justify-center font-bold text-base text-orange-900">{{ org.name }}</h1>
+<br>
+<hr class="border-orange-900 border-1">
+{% if check %}
+    {% for post in posts %}
+        {% if post.org_id == org.id %}
+
+        <section class="text-gray-600 body-font font-mono">
+            <div class="container mx-auto flex px-10 py-10 md:flex-row flex-col items-center">
+              <div class=" w-2/3 border-r border-r-orange-900 lg:flex-grow lg:pr-0 md:pr-0 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-bold text-orange-900 ">
+                    {{ post.title }}
+                </h1>
+                <small>Post created: {{ post.date_posted }}</small>
+                <p class="mr-2 mb-8 leading-relaxed ">{{ post.content }}</p>
+                <div class="flex justify-center">
+                    Post created by: <p class="font-bold">&nbsp;&nbsp;{{ post.org_name }}</p>
+                </div>
+              </div>
+              
+              <div class="lg:max-w-lg w-3/12 ml-10">
+                {% if post.picture %}
+                <img class="h-60 w-4/5 object-cover object-center rounded hover:scale-150 hover:origin-top" alt="hero" src="/static/images/posts/{{ post.picture }}">
+                {% else %}
+                <img class="h-60 w-ful object-cover object-center rounded" alt="hero" src="/static/images/icons/userpost.jpg">
+                {% endif %}  
+            </div>
+            </div>
+        </section>
+
+
+        <!-- <section class="text-gray-600 body-font font-mono">
+            <div class="container mx-auto flex px-10 py-10 md:flex-row flex-col items-center">
+              <div class=" w-2/3 border-r border-r-orange-900 lg:flex-grow lg:pr-0 md:pr-0 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-bold text-orange-900 ">
+                    {{ post.title }}
+                </h1>
+                <small>Post created: {{ post.date_posted }}</small>
+                <p class="mr-2 mb-8 leading-relaxed ">{{ post.content }}</p>
+                <div class="flex justify-center">
+                    Post created by: <p class="font-bold">&nbsp;&nbsp;{{ post.org_name }}</p>
+                </div>
+              </div>
+              <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 ml-10">
+                {% if post.picture %}
+                <img class="h-60 w-4/5 object-cover object-center rounded" alt="hero" src="/static/images/{{ post.picture }}">
+                {% else %}
+                <img class="h-60 w-4/5 object-cover object-center rounded" alt="hero" src="/static/images/user_my_requests.jpg">
+                {% endif %}  
+            </div>
+            </div>
+          </section> -->
+
+        {% endif %}
+    {% endfor %}
+<br>
+{% else %}
+<div class="py-1 px-10 text-xl font-mono text-orange-900">
+    <div class="flex flex-col justify-center items-center mt-20">
+        <img src="/static/images/icons/typewriter.png" class="h-20 w-20 mb-5">
+    <p >Oops!! Looks like <b class="text-2xl text-black">{{ org.name }}</b> created no posts yet!</p>
+    </div>
+</div>
+    
+{% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base_user.html" %} 
+{% block title %}Login{% endblock %} 
+{% block content%}
+
+<!-- Request sent successfully
+<br><Br>
+{{ msg }}<br>
+pickup date {{ pickup_date }}
+<br>
+pickup time {{ pickup_time }}
+<br>
+pickup item {{ pickup_item }} -->
+
+<section class="text-gray-600 body-font">
+    <div class="container mx-auto flex px-5 py-12 items-center justify-center flex-col">
+      <img class="lg:w-1/6 md:w-3/6 w-1/6 mb-10 object-cover object-center rounded" alt="hero" src="/static/images/icons/send.png">
+      <div class="text-center lg:w-2/3 w-full">
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-black">Request Sent Successfully!</h1>
+        <p class="mb-8 leading-relaxed">Pickup Date: {{ pickup_date }} | Pickup Time: {{ pickup_time }} | Pickup Item: {{ pickup_item }}</p>
+        <div class="flex justify-center">
+          <a href="{{ url_for('search_details', id=org) }}" class="inline-flex text-white bg-orange-900 border-0 py-1 px-3 focus:outline-none hover:bg-orange-800 rounded-full text-base">Go back
+            <svg class="w-4 h-6 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+          </a>
+          <!-- <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button> -->
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

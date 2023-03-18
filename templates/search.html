@@ -1,0 +1,50 @@
+{% extends "base_user.html" %} 
+{% block title %}search{% endblock %} 
+{% block content%}
+
+
+	{% if orgs %}
+	<div class="flex justify-center my-2 mb-10 mx-72 rounded text-xl bg-orange-50 ">
+		<p>You Searched For: <em><b>{{ locationSearched }}</b></em> | <small>Total number of results: <em><b>{{ org_count }}</b></em></small></p>
+	</div>
+
+	{% for org in orgs %}
+	<section class="text-gray-600 body-font mx-16 hover:bg-orange-50 rounded hover:scale-105 hover:z-0">
+		<div class="container px-5 py-16 mx-auto flex flex-wrap items-center">
+		  <h2 class="sm:text-3xl text-2xl text-gray-900 font-medium title-font mb-2 md:w-2/5">{{ org.name }}
+			<br><small class="text-sm text-center">({{ org.types }})</small>
+		  </h2>
+		  <div class="md:w-3/5 md:pl-6">
+			<p class="leading-relaxed text-base">
+				<b>{{ org.city|safe }}</b><br>
+				Location: {{ org.address }}<br>
+				
+			</p>
+			<div class="flex md:mt-4 mt-6">
+			  <a href="{{ url_for('user_view_posts', id=org.id) }}" class="inline-flex text-white bg-orange-900 border-0 py-1 px-4 focus:outline-none hover:bg-orange-800 rounded-full">View Posts</a>
+			  <a href="{{ url_for('search_details', id=org.id) }}" class="text-orange-900 inline-flex items-center ml-4">View Details
+				<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+				  <path d="M5 12h14M12 5l7 7-7 7"></path>
+				</svg>
+			  </a>
+			</div>
+		  </div>
+		</div>
+	</section>
+	<br>
+
+	{% endfor %}
+
+	{% else %}
+	<div class=" mt-6">
+		<div class="flex flex-col justify-center items-center ">
+			<p class="px-2 my-2 mx-72 rounded text-xl bg-orange-50">
+				Sorry, your search:&nbsp; <strong>{{ locationSearched }}</strong>&nbsp; was not found... | <small>Total number of results: <em><b>{{ org_count }}</b></em></small>
+			</p>
+			<img src="/static/images/icons/noresultsfound.jpg" class="h-64 w-96 object-cover" />
+		</div>
+	</div>
+
+	
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helping Hands</title>
+    <link href="/static/css/output.css" rel="stylesheet">
+</head>
+<body class="font-serif">
+    <center>
+      <div class="relative z-10">
+        <header class="text-orange-100 h-6">
+          <div class="fixed px-5 bg-orange-900 container mx-auto flex flex-wrap items-center justify-center">
+            <i>"Happiness doesn't result from what we get, but from what we give"</i>
+          </div>
+        </header>
+          <header class="text-orange-900 body-font h-10">
+              <div class="fixed px-5 py-1 bg-orange-100 container mx-auto flex flex-wrap  flex-col md:flex-row items-center">
+                <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                  <img src="/static/images/icons/icon.png" class="w-10 h-10 text-black p-2 bg-white rounded-full" viewBox="0 0 24 24" >
+                  <span class="ml-3 text-xl">Helping Hands</span>
+                </a>
+                <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+                  <a class="mr-5 hover:text-gray-900" href="{{ url_for('landingPage') }}">Home</a>
+                  <a class="mr-5 hover:text-gray-900" href="#about">About</a>
+                  <a class="mr-5 hover:text-gray-900" href="#faq">FAQ</a>
+                  <a class="mr-5 hover:text-gray-900" href="#contactus">Contact/Feedback</a>
+                </nav>
+                {% if current_user.is_authenticated and current_user.utype == 'User' %}
+                    <a class="hover:scale-95 inline-flex items-center bg-white border-0 py-1 px-3 focus:outline-none rounded-full text-base mt-4 md:mt-0 mr-6" href="{{ url_for('user_dashboard') }}">Dashboard
+                    </a>
+                    <a class="hover:scale-95 inline-flex items-center bg-white border-0 py-1 px-3 focus:outline-none rounded-full text-base mt-4 md:mt-0" href="{{ url_for('user_logout') }}">Logout
+                    </a>
+              {% elif current_user.is_authenticated and current_user.utype == 'Org' %}
+                  <a class="hover:scale-95 inline-flex items-center bg-white border-0 py-1 px-3 focus:outline-none  rounded-full text-base mt-4 md:mt-0 mr-6" href="{{ url_for('org_dashboard') }}">Dashboard
+                  </a>
+                  <a class="hover:scale-95 inline-flex items-center bg-white border-0 py-1 px-3 focus:outline-none rounded-full text-base mt-4 md:mt-0" href="{{ url_for('user_logout') }}">Logout
+                  </a>
+              {% else %}
+                  <a class="inline-flex items-center bg-white border-0 py-1 px-3 focus:outline-none hover:scale-95 rounded-full text-base mt-4 md:mt-0 mr-6" href="#new_here">Get Started
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                      <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                    </a>
+                    <a class="inline-flex items-center bg-white border-0 py-1 px-3 focus:outline-none hover:scale-95 rounded-full text-base mt-4 md:mt-0" href="{{ url_for('login') }}">Login
+                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                      </svg>
+                  </a>
+                {% endif %}
+                
+              </div>
+          </header>
+      </div>
+
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == "error" %}
+                    <div id="alertDiv" class="mt-10 mx-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                      <strong class="font-bold">Something went wrong!</strong>
+                      <span class="block sm:inline">{{ message }}</span>
+                      <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                        <svg onclick="document.getElementById('alertDiv').style.display='none'" class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title>
+                          <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
+                          </svg>
+                      </span>
+                  </div>
+                    {% else %}
+                    <div id="alertDiv" class="mt-10 mx-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                      <strong class="font-bold">Yayy!</strong>
+                      <span class="block sm:inline">{{ message }}</span>
+                      <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                        <svg onclick="document.getElementById('alertDiv').style.display='none'" class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title>
+                          <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
+                          </svg>
+                      </span>
+                  </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+
+<section id="hero" class="text-orange-900 body-font mb-10">
+  <div class="container px-5 py-16 mx-auto">
+    <div class="flex flex-col text-center w-full mb-16 justify-center items-center">
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+        Welcome peeps! You've arrived at your destination.
+      </p>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base font-bold">
+        Let's begin: First up you need to identify yourself, register as DONOR or ORGANIZATION. Set your details and proceed. Get started right away.
+      </p>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+        Voilà! You are ready to use the platform.
+      </p>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base font-bold">  
+        Let us all help each other!
+      </p>
+    </div>
+
+    <div class="flex flex-wrap -m-4">
+      <div class="lg:w-1/3 sm:w-1/2 p-4">
+        <div class="flex relative">
+          <img alt="gallery" class="rounded absolute inset-0 w-full h-full object-cover object-center" src="/static/images/landingPage/imgg.png">
+          <div class="rounded px-8 py-10 relative w-full border-4 border-orange-900 bg-white opacity-0 hover:opacity-100">
+            <h2 class="tracking-widest text-sm title-font font-medium text-orange-300 mb-1">HELPING HANDS</h2>
+            <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Chase secured charity</h1>
+            <p class="leading-relaxed">Make sure your donations reach their accurate destination.</p>
+          </div>
+        </div>
+      </div>
+      <div class="lg:w-1/3 sm:w-1/2 p-4">
+        <div class="flex relative">
+          <img alt="gallery" class="rounded absolute inset-0 w-full h-full object-cover object-center" src="/static/images/landingPage/img02.jpg">
+          <div class="rounded px-8 py-10 relative w-full border-4 border-orange-900 bg-white opacity-0 hover:opacity-100">
+            <h2 class="tracking-widest text-sm title-font font-medium text-orange-300 mb-1">HELPING HANDS</h2>
+            <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Lend a hand</h1>
+            <p class="leading-relaxed">Check out FAQ section. <br>Easy to use.</p>
+          </div>
+        </div>
+      </div>
+      <div class="lg:w-1/3 sm:w-1/2 p-4">
+        <div class="flex relative">
+          <img alt="gallery" class="rounded absolute inset-0 w-full h-full object-cover object-center" src="/static/images/landingPage/img.jpg">
+          <div class="rounded px-8 py-10 relative w-full border-4 border-orange-900 bg-white opacity-0 hover:opacity-100">
+            <h2 class="tracking-widest text-sm title-font font-medium text-orange-300 mb-1">HELPING HANDS</h2>
+            <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Schedule a pickup</h1>
+            <p class="leading-relaxed">You can easily arrange a pickup at your ease and send happiness.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<div id="new_here" class="py-15 mx-1">
+        {% if current_user.is_authenticated %}
+
+        <section class="text-black body-font">
+          <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+            <div class="ml-20 lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+              <img class="object-cover object-center rounded" alt="hero" src="/static/images/welcomeLanding.jpg">
+            </div>
+            <div class="border-r-2 border-orange-900">
+              <p></p>
+            </div>
+
+            {% if current_user.utype == 'User' %}
+            <div class="mx-auto lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col justify-center items-center text-center">
+              <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-orange-900">Current user: <a href="{{ url_for('user_dashboard') }}" class="underline">@{{ current_user.username }}</a></h1>
+              <p class="mb-8 leading-relaxed">You're currently logged in! Go to your dashboard and explore new places around you in need of your help!</p>
+              <div class="flex items-center mx-auto">
+                <a href="{{ url_for('user_logout')}}" class="mr-2 inline-flex text-orange-100 bg-orange-900 border-0 py-2 px-8 focus:outline-none hover:bg-orange-800 rounded-full text-lg">Logout</a>
+                <a href="{{ url_for('user_dashboard') }}" class="inline-flex text-orange-100 bg-orange-900 border-0 py-2 px-6 focus:outline-none hover:bg-orange-800 rounded-full text-lg">Dashboard</a>    
+              </div>
+            </div>
+            {% else %}
+            <div class="mx-auto lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col justify-center items-center text-center">
+              <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-orange-900">Current user: <a href="{{ url_for('org_dashboard') }}" class="underline">@{{ current_user.username }}</a>
+                <!-- <br class="hidden lg:inline-block">readymade gluten -->
+              </h1>
+              <p class="mb-8 leading-relaxed">You're currently logged in! Go to your dashboard and make your organization stand out to increase your reach!</p>
+              <div class="flex justify-center">
+                <a href="{{ url_for('user_logout')}}" class="mr-2 inline-flex text-orange-100 bg-orange-900 border-0 py-2 px-8 focus:outline-none hover:bg-orange-800 rounded-full text-lg">Logout</a>
+                <a href="{{ url_for('org_dashboard') }}" class="inline-flex text-orange-100 bg-orange-900 border-0 py-2 px-8 focus:outline-none hover:bg-orange-800 rounded-full text-lg">Dashboard</a>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </section>
+
+        {% else %}
+        <section class="border-2 border-orange-900 text-black body-font">
+            <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-center">
+              <div class="md:w-1/2 w-4/5 mb-10 md:mb-0 ml-10">
+                <img class="object-cover object-center rounded" alt="register" src="/static/images/register.jpg">
+              </div>
+
+              <div class="rounded-lg  ml-0 pr-5 py-16 lg:flex-grow md:w-1/2 lg:pl-10 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-orange-900">You're a wonderful person!
+                </h1>
+                <p class="mb-8 leading-relaxed underline text-orange-900 opacity-50 text-sm">Please fill the following to proceed & remember your credentials.</p>
+
+                <form method="POST">
+                    <label for="username" class="leading-relaxed text-orange-900">User-name</label>
+                    <input type="text" id="username" name="username" class="px-5 rounded-full border-2 border-orange-100 border-b-orange-900 ml-28 w-64" required>
+                    <br><br>
+                    <label for="pwd1" class="leading-relaxed text-orange-900">Password</label>
+                    <input type="password" id="pwd1" name="pwd1" class="px-5 rounded-full border-2 border-orange-100 border-b-orange-900 ml-32 w-64" required>
+                    <br><br>
+                    <label for="pwd2" class="leading-relaxed text-orange-900">Confirm Password</label>
+                    <input type="password" id="pwd2" name="pwd2" class="px-5 rounded-full border-2 border-orange-100 border-b-orange-900 ml-16 w-64" required>
+                    <br><br>
+                    <label for="utype" class="leading-relaxed text-orange-900">User type</label>
+                    <select name="utype" id="utype" class="rounded-full border-2 border-orange-100 border-b-orange-900 ml-32 w-64 text-center">
+                        <option value="User">User</option>
+                        <option value="Org">Org</option>
+                    </select>
+                    <br><Br>
+                        <div class="flex justify-center">
+                          <button type="submit" class="text-white bg-orange-900 border-0 py-2 px-8 focus:outline-none hover:bg-orange-800 rounded-full text-lg">Continue</button>
+                        </div>
+                </form>
+              </div>
+            </div>
+          </section>
+        {% endif %}
+</div>
+
+<div id="about" class="py-20">
+    <section class="text-gray-600 body-font">
+      <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-col text-center w-full mb-12">
+          <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-orange-900">About Us!</h1>
+          <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+            In 2022, we started off with four organizations and less than ten donors.
+            <br>Our work got its recognization through manual networking of some amazing gestures and kindness of our donors which also made many more to gather for a better cause and join in unity. 
+            Today, we have arrived to the numbers below only because of the real heros behind those donations and generous workers who believed in charity and were kind enough to accompany us in our journey towards humanity.
+          </p>
+        </div>
+        <div class="flex flex-wrap -m-4 text-center text-orange-900">
+          <div class="p-4 sm:w-1/4 w-1/2">
+            <h2 class="title-font font-medium sm:text-4xl text-3xl text-orange-900">2.7K</h2>
+            <p class="leading-relaxed">Users</p>
+          </div>
+          <div class="p-4 sm:w-1/4 w-1/2">
+            <h2 class="title-font font-medium sm:text-4xl text-3xl text-orange-900">1.8K</h2>
+            <p class="leading-relaxed">Organizations</p>
+          </div>
+          <div class="p-4 sm:w-1/4 w-1/2">
+            <h2 class="title-font font-medium sm:text-4xl text-3xl text-orange-900">3.5K</h2>
+            <p class="leading-relaxed">Donations</p>
+          </div>
+          <div class="p-4 sm:w-1/4 w-1/2">
+            <h2 class="title-font font-medium sm:text-4xl text-3xl text-orange-900">5k</h2>
+            <p class="leading-relaxed">Cities</p>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>
+
+
+<section id="faq" class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+
+    <div class="flex flex-col text-center w-full mb-20">
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-orange-900">FAQ (Frequenty Asked Questions)</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">These are the most frequently asked question. Please go through it. To know more, contact below. <br>(contact details provided below)</p>
+    </div>
+
+    <div class="flex flex-wrap -m-2">
+
+      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+        <div class="h-full flex items-center border-orange-900 border p-4 rounded-lg hover:border-2">
+          <div class="flex-grow">
+            <h2 class="text-orange-900 font-bold title-font">Do I need to register to get started?</h2>
+            <p class="text-gray-500">Yes. Registration is very simple. Login credentials are required to proceed.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+        <div class="h-full flex items-center border-orange-900 border p-4 rounded-lg hover:border-2">
+          <div class="flex-grow">
+            <h2 class="text-orange-900 font-bold title-font">Are the organizations legitimate ?</h2>
+            <p class="text-gray-500">Legitimacy is one of the important factor. Each organization has to go through a clearance test.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+        <div class="h-full flex items-center border-orange-900 border p-4 rounded-lg hover:border-2">
+          <div class="flex-grow">
+            <h2 class="text-orange-900 title-font font-bold">Can I cancel my request or reschedule?</h2>
+            <p class="text-gray-500">Yes, you can cancel your pickup request at any given time and reschedule as well.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+        <div class="h-full flex items-center border-orange-900 border p-4 rounded-lg hover:border-2">
+          <div class="flex-grow">
+            <h2 class="text-orange-900 title-font font-bold">Can organizations put additional data?</h2>
+            <p class="text-gray-500">Yes. Apart from its details. Organizations can regularly post about their recent activities.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+        <div class="h-full flex items-center border-orange-900 border p-4 rounded-lg hover:border-2">
+          <div class="flex-grow">
+            <h2 class="text-orange-900 title-font font-bold">Can organization cancel any request?</h2>
+            <p class="text-gray-500">Yes. They have the authority to cancel any received request if they are not able to fulfil it.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+        <div class="h-full flex items-center border-orange-900 border p-4 rounded-lg hover:border-2">
+          <div class="flex-grow">
+            <h2 class="text-orange-900 title-font font-bold">How to proceed after scheduling a request?</h2>
+            <p class="text-gray-500">The respective organization would contact you. You can track your request status.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section id="contactus"  class="text-orange-900 body-font relative">
+  <div class="container px-5 pt-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-5">
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-black">Feedback</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Give us your valuable feedback. For any further information please feel free to contact us.</p>
+    </div>
+    <div class="lg:w-1/2 md:w-2/3 mx-auto">
+      <form method="POST" action="{{ url_for('contact_us') }}">
+        <div class="flex flex-wrap -m-2">
+          <div class="p-2 w-1/2">
+            <div class="relative">
+              <label for="name" class="leading-7 text-sm text-black">Name</label>
+              <input type="text" id="person_name" name="person_name" placeholder="Enter name..." class="w-full bg-gray-100 bg-opacity-50 rounded border border-orange-900 focus:border-orange-100 focus:bg-white focus:ring-2 focus:ring-orange-100 text-base outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            </div>
+          </div>
+          <div class="p-2 w-1/2">
+            <div class="relative">
+              <label for="email" class="leading-7 text-sm text-black">Email</label>
+              <input type="email" id="person_email" name="person_email" placeholder="Enter Email Address" class="w-full bg-gray-100 bg-opacity-50 rounded border border-orange-900 focus:border-orange-100 focus:bg-white focus:ring-2 focus:ring-orange-100 text-base outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            </div>
+          </div>
+          <div class="p-2 w-full">
+            <div class="relative">
+              <label for="message" class="leading-7 text-sm text-black">Message</label>
+              <textarea id="person_message" name="person_message" rows="3" placeholder="Enter message here..." class="w-full bg-gray-100 bg-opacity-50 rounded border border-orange-900 focus:border-orange-100 focus:bg-white focus:ring-2 focus:ring-orange-100 text-base outline-none text-black py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+            </div>
+          </div>
+          <div class="p-2 w-full">
+            <button type="submit" class=" text-orange-100 bg-orange-900 border-0 py-2 px-8 focus:outline-none hover:bg-orange-800 rounded-full text-lg">Send</button>
+          </div>
+          <div class="p-2 w-full pt-3 mt-3 border-t border-gray-200 text-center">
+            <a class="text-indigo-500 border-b-orange-900" href="https://mail.google.com/mail/">helpinghands@gmail.com</a>
+            <p class="leading-normal py-3">05 Ramsy Ville
+              <br>Talao Pali, TH 400602
+            </p>
+  
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+          
+<footer class="text-orange-900 body-font">
+  <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+    <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+      <img src="/static/images/icons/footerIcon.png" class="w-10 h-10 p-2 bg-orange-900 rounded-full" viewBox="0 0 24 24" >
+      <span class="ml-3 text-xl">Helping Hands</span>
+    </a>
+    <p class="text-sm sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-orange-900 sm:py-2 sm:mt-0 mt-4">© 2022-2023 helpinghands —
+      <a href="" class="ml-1" rel="noopener noreferrer" target="_blank">@anushkapradhan</a>
+    </p>
+    <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start text-orange-900">
+      <a>
+        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+          <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+        </svg>
+      </a>
+      <a class="ml-3">
+        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+          <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+        </svg>
+      </a>
+      <a class="ml-3">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+        </svg>
+      </a>
+      <a class="ml-3">
+        <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+          <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+          <circle cx="4" cy="4" r="2" stroke="none"></circle>
+        </svg>
+      </a>
+    </span>
+  </div>
+</footer>
+
+    </center>
+</body>
+</html>

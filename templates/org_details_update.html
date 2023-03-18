@@ -1,0 +1,268 @@
+{% extends "base_org.html" %} 
+{% block title %}org details{% endblock %} 
+{% block content%}
+
+<!-- <form method="POST" enctype="multipart/form-data">
+  <h3 align="center">Sign Up</h3>
+  <div class="form-group">
+    <label for="name">Name*</label>
+    <input type="text" id="name" name="name" class="form-control" placeholder="Enter name" required />
+    <br><br>
+    <label for="email">Email Address*</label>
+    <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" required />
+    <br><br>
+    <label for="contact">Contact*</label>
+    <input type="text" id="contact" name="contact" class="form-control" placeholder="Enter Contact" required />
+    <br><br>
+    <label for="alt_contact">Alternate Contact (if any)</label>
+    <input type="text" id="alt_contact" name="alt_contact" class="form-control" placeholder="Enter alternate contact" />
+    <br><br>
+    <label for="address">Address</label>
+    <input type="text" id="address" name="address" class="form-control" placeholder="Enter Address" />
+    <br><br>
+    <label for="city">City*</label>
+    <input type="text" id="city" name="city" class="form-control" placeholder="Enter city" required />
+    <br><br>
+    <label for="state">State*</label>
+    <input type="text" id="state" name="state" class="form-control" placeholder="Enter state" required />
+    <br><br>
+    <label for="types">Types*</label>
+    <input type="text" id="types" name="types" class="form-control" placeholder="Enter types" required />
+    <br><br>
+    <label for="description">description*</label>
+    <textarea type="text" id="description" name="description" class="form-control" placeholder="Enter description" required></textarea>
+    <br><br>
+    <label for="photo">Photo*</label>
+    <input type="file" id="file" name="file" class="form-control" placeholder="Choose photo" />
+    <br><br>
+    <label for="website">Website*</label>
+    <input type="url" id="website" name="website" class="form-control" placeholder="Enter website" pattern="https://.*" />
+    <br><br>
+    <input type="submit" value="submit org details">
+  </div>
+</form> -->
+
+<section class=" text-gray-600 body-font">
+    <div class="container px-5 py-10 mx-auto flex flex-col">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+      <div class="flex flex-wrap -mx-3 mb-2">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            {{ form.name.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+            {{ form.name(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-orange-100 focus:border-orange-900") }}
+        </div>
+        <div class="w-full md:w-1/2 px-3">
+            {{ form.email.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+            {{ form.email(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-orange-100 focus:border-orange-900") }}	
+        </div>
+    </div>
+
+    <div class="flex flex-wrap -mx-3 mb-2">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            {{ form.contact.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+            {{ form.contact(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-orange-100 focus:border-orange-900") }}
+        </div>
+        <div class="w-full md:w-1/2 px-3">
+            {{ form.alt_contact.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+            {{ form.alt_contact(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-orange-100 focus:border-orange-900", placeholder='Enter alternative contact...') }}
+        </div>
+      </div>
+
+      <div class="flex flex-wrap flex-row -mx-3 mb-2">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            {{ form.address.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+            {{ form.address(class="resize-none appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-orange-100 focus:border-orange-900", rows="3") }}
+        </div>
+        <div class="w-full md:w-1/2 px-3">
+            {{ form.city.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+            {{ form.city(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-orange-100 focus:border-orange-900") }}
+        </div>
+      </div>
+
+      <div class="flex flex-wrap flex-row -mx-3 mb-2">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            {{ form.types.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+            {{ form.types(class="resize-none appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-orange-100 focus:border-orange-900", rows="3") }}
+        </div>
+        <div class="w-full md:w-1/2 px-3">
+            {{ form.state.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+            {{ form.state(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-orange-100 focus:border-orange-900") }}
+        </div>
+      </div>
+
+      <div class="flex flex-wrap -mx-3 mb-2">
+        <div class="w-full px-3">
+            {{ form.description.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+            {{ form.description(class="resize-none appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-orange-100 focus:border-orange-900", rows="4") }}
+        </div>
+    </div>
+
+    <div class="flex flex-wrap flex-row -mx-3 mb-2">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <!-- <p>{{ org_to_update.photo }}</p><br> -->
+            {% if org_to_update.photo %}
+            <img src="/static/images/orgs/{{ org_to_update.photo }}" class="object-cover object-center h-64 w-full" alt="Please choose an image"> 
+            {% else %}
+            <p class="text-center text-orange-900 italic">No picture set. Please select some picture.</p>
+            <img src="/static/images/org.jpg" class="w-full h-44 object-cover" alt="Please choose an image"> 
+            {% endif %}
+        </div>
+        <div class="w-full md:w-1/2 px-3 flex flex-col justify-center">
+            <div class="mb-2">
+                <p class="text-center text-orange-900 italic">Please re-select the image before submitting!</p>
+            </div>
+            <div class="mb-2">
+                {{ form.photo.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+                {{ form.photo(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-orange-100 focus:border-orange-900") }}
+            </div>
+            <div>
+                {{ form.website.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+                {{ form.website(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-orange-100 focus:border-orange-900", placeholder='Enter website..') }}
+            </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap -mx-3 mb-2">
+        <div class="w-full px-3">
+            {{ form.maps.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+            {{ form.maps(class="resize-none appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-orange-100 focus:border-orange-900") }}
+            <div class="border-2 border-orange-900 inset-0 mx-2 px-2 py-2 flex">
+              <iframe width="100%" height="200" frameborder="0" marginheight="0" marginwidth="0" title="map" scrolling="no" src="{{ org_to_update.maps }}" class="opacity-80 mt-0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-wrap -mx-3 mt-5 mb-6">
+			<div class="w-full px-3">
+				{{ form.submit(class="hover:cursor-pointer appearance-none flex mx-auto text-orange-100 bg-orange-900 border-0 py-2 px-8 focus:outline-none hover:bg-orange-800 rounded-full text-lg") }}	
+        <div class="">
+          <a href="{{ url_for('org_delete', id=current_user.id) }}" class="underline mt-2 hover:cursor-pointer appearance-none flex justify-center   text-orange-900 border-0 py-2 px-2 focus:outline-none rounded-full text-lg">Delete Account?</a>
+        </div>
+
+			</div>
+		</div>
+        </form>
+    </div>
+  </section>
+
+
+  <!-- <section class="text-gray-600 body-font mt-8">
+	<div class="container mx-auto flex px-5 py-15 md:flex-row flex-col items-center">
+	  <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+		<img class="object-cover object-center rounded" alt="hero" src="/static/images/updateUserDetails.jpg">
+	  </div>
+	  <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+		
+	<form method="POST" class="w-full max-w-lg">
+		<div class="flex flex-wrap -mx-3 mb-6">
+			<div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+				{{ form.username.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+				{{ form.username(class="italic appearance-none block w-full bg-orange-50 text-gray-400 border border-orange-100 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white hover:cursor-not-allowed", disabled=True) }}
+			  <p class="text-orange-900 text-xs italic">You cannot change the username!</p>
+			</div>
+			<div class="w-full md:w-1/2 px-3">
+				{{ form.name.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+				{{ form.name(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-orange-100") }}
+			</div>
+		  </div>
+		<div class="flex flex-wrap -mx-3 mb-6">
+			<div class="w-full px-3">
+				{{ form.email.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+				{{ form.email(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-orange-100") }}	
+			</div>
+		</div>
+		<div class="flex flex-wrap -mx-3 mb-6">
+			<div class="w-full px-3">
+				{{ form.submit(class="hover:cursor-pointer appearance-none flex mx-auto text-orange-100 bg-orange-900 border-0 py-2 px-8 focus:outline-none hover:bg-orange-800 rounded-full text-lg") }}	
+			<a href="{{ url_for('user_delete', id=current_user.id) }}" class="w-1/2 underline mt-2 hover:cursor-pointer appearance-none flex mx-auto text-orange-900 border-0 py-2 px-5 focus:outline-none hover:text-orange-500 rounded-full text-lg">Delete User</a>
+			</div>
+		</div>
+    </form>
+	  </div>
+	</div>
+  </section> -->
+
+<!-- <div class="shadow p-3 mb-5 bg-body rounded">
+	<form method="POST">
+		{{ form.hidden_tag() }}
+
+		{{ form.username.label(class="form-label") }}
+
+		{{ form.username(class="bg-orange-500", disabled=True) }}
+		<br/><br><br>
+
+        
+
+		 
+		{{ form.name.label(class="form-label") }}
+
+		{{ form.name(class="form-control") }}
+		<br/><br><br>
+		
+		{{ form.email.label(class="form-label") }}
+
+		{{ form.email(class="form-control") }}
+		<br/><br><br>
+
+        {{ form.contact.label(class="form-label") }}
+
+		{{ form.contact(class="form-control") }}
+		<br/><br><br>
+
+        {{ form.alt_contact.label(class="form-label") }}
+
+		{{ form.alt_contact(class="form-control") }}
+		<br/><br><br>
+
+        {{ form.address.label(class="form-label") }}
+
+		{{ form.address(class="form-control", rows="4") }}
+		<br/><br><br>
+
+        {{ form.city.label(class="form-label") }}
+
+		{{ form.city(class="form-control") }}
+		<br/><br><br>
+
+        {{ form.state.label(class="form-label") }}
+
+		{{ form.state(class="form-control") }}
+		<br/><br><br>
+
+        {{ form.types.label(class="form-label") }}
+
+		{{ form.types(class="form-control") }}
+		<br/><br><br>
+
+        {{ form.description.label(class="form-label") }}
+
+		{{ form.description(class="form-control", rows="5") }}
+		<br/><br><br>
+<p>{{ org_to_update.photo }}</p><br>
+<img src="/static/images/orgs/{{ org_to_update.photo }}" height="300" width="300" alt="image"><br><br>
+
+        {{ form.photo.label(class="form-label") }}
+
+		{{ form.photo(class="form-control") }}
+		<br/><br><br>
+
+        {{ form.website.label(class="form-label") }}
+
+		{{ form.website(class="form-control") }}
+		<br/><br><br>
+
+		
+		{{ form.submit(class="btn btn-secondary") }}
+
+
+	</form>
+
+
+	
+</div> -->
+
+<!-- <a href="login">login</a> -->
+
+
+{% endblock %}

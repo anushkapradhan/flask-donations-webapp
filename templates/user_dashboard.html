@@ -1,0 +1,33 @@
+{% extends "base_user.html" %} 
+{% block title %}user dashboard{% endblock %} 
+{% block content%}
+
+
+{% if current_user.is_authenticated %}
+
+        <section class="text-gray-600 body-font">
+                <div class="container mx-auto flex px-5 py-15 items-center justify-center flex-col">
+                  <img class="lg:w-2/6 md:w-3/6 w-5/6 mb-2 object-cover object-center rounded h-80" alt="hero" src="static/images/welImg.jpg">
+                  
+                  <div class="mt-0 text-center lg:w-2/3 w-full">
+                        
+                    <p class="mt-0 leading-relaxed font-bold text-orange-900">Hello {{ user }} (@{{ current_user.username }})!</p>
+                    <p class="mt-0 mb-5 leading-relaxed text-black">Enter your location and find best organizations near you.</p>
+
+
+                    <form method="POST" action="{{ url_for('search') }}">
+                        <div class="flex w-full justify-center items-end">
+                          <div class="relative mr-4 md:w-full lg:w-full xl:w-1/2 w-2/4">
+                            <input type="text" id="search" name="search" required placeholder="Enter location..." size="100" class="w-full bg-gray-100 rounded border bg-opacity-50 border-orange-900 focus:ring-2 focus:ring-orange-100 focus:bg-white focus:border-orange-100 text-base outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                          </div>
+                          <button type="submit" id="search_btn" class="inline-flex text-white bg-orange-900 border-0 py-2 px-6 focus:outline-none hover:bg-orange-800 rounded-full text-lg">Search Now</button>
+                        </div>
+                    </form>
+
+                  </div>
+                </div>
+              </section>
+{% endif %}
+
+
+{% endblock %}

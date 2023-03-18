@@ -1,0 +1,59 @@
+{% extends "base_user.html" %} 
+{% block title %}user details{% endblock %} 
+{% block content%}
+
+
+	<!-- <br>To update: {{ user_to_update.name }} with id {{ id }} -->
+
+
+<section class="text-gray-600 body-font mt-2">
+	<div class="container mx-auto flex px-5 py-1 md:flex-row flex-col items-center">
+	  <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+		<img class="object-cover object-center rounded" alt="hero" src="/static/images/updateUserDetails.jpg">
+	  </div>
+	  <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+		
+	<form method="POST" class="w-full max-w-lg">
+		<div class="flex flex-wrap -mx-3 mb-6">
+			<div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+				{{ form.username.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+				{{ form.username(class="italic appearance-none block w-full bg-orange-50 text-gray-400 border border-orange-100 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white hover:cursor-not-allowed", disabled=True) }}
+			  <p class="text-orange-900 text-xs italic">You cannot change the username!</p>
+			</div>
+			<div class="w-full md:w-1/2 px-3">
+				{{ form.name.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+				{{ form.name(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-orange-100") }}
+			</div>
+		  </div>
+		<div class="flex flex-wrap -mx-3 mb-6">
+			<div class="w-full px-3">
+				{{ form.email.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+				{{ form.email(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-orange-100") }}	
+			</div>
+		</div>
+		<div class="flex flex-wrap -mx-3 mb-6">
+			<div class="w-full px-3">
+				{{ form.contact.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+				{{ form.contact(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-orange-100") }}	
+			</div>
+		</div>
+		<div class="flex flex-wrap -mx-3 mb-6">
+			<div class="w-full px-3">
+				{{ form.address.label(class="block uppercase tracking-wide text-orange-900 text-xs font-bold mb-2") }}
+				{{ form.address(class="appearance-none block w-full bg-orange-50 text-black border border-orange-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-orange-100 resize-none", rows="3") }}	
+			</div>
+		</div>
+		<div class="flex flex-wrap -mx-3 mb-6">
+			<div class="w-full px-3">
+				{{ form.submit(class="hover:cursor-pointer appearance-none flex mx-auto text-orange-100 bg-orange-900 border-0 py-2 px-8 focus:outline-none hover:bg-orange-800 rounded-full text-lg") }}	
+			<a href="{{ url_for('user_delete', id=current_user.id) }}" class=" mt-2 hover:cursor-pointer appearance-none flex justify-center mx-40 text-orange-100 bg-orange-900 border-0 py-2 px-8 focus:outline-none hover:bg-red-500 rounded-full text-lg">Delete Account</a>
+			</div>
+		</div>
+		  </form>
+
+	  </div>
+	</div>
+  </section>
+
+
+{% endblock %}

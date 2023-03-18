@@ -1,0 +1,63 @@
+{% extends "base_user.html" %} 
+{% block title %}My requests{% endblock %} 
+{% block content%}
+
+{% if check %}
+
+    {% for req in reqs %}
+    {% if user.id == req.user_id %}
+    <section class=" text-gray-600 body-font overflow-hidden">
+        <div class="container px-5 py-12 mx-auto">
+          <div class="-my-8 divide-y-2 divide-orange-900">
+
+            <div class="py-8 flex flex-wrap flex-row  md:flex-nowrap">
+                <div class="ml-20 mr-10">
+                    <img src="/static/images/icons/tick.png" height="50" width="50">
+                  </div>
+
+              <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                <span class="font-semibold title-font text-green-500">REQUEST SENT!</span>
+                <span class="mt-1 text-gray-500 text-sm">{{ req.request_created }}</span>
+              </div>
+
+              <div class="md:flex-grow">
+                <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{{ req.org_name }}</h2>
+                <p class="leading-relaxed">
+                    You will get a pickup call soon from this organization. <b>Status:</b> {{ req.request_status }}
+                    <br>Date: {{ req.pickup_date }} | Time: {{ req.pickup_time }} | Item: {{ req.pickup_item }}
+                    <br>Address: {{ req.org_address }}
+                </p>
+                
+                <a href="{{ url_for('search_details', id=req.org_id) }}" class="text-orange-900 inline-flex items-center mt-4">View more about this organization
+                  <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="M12 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+                <a href="{{ url_for('user_request_delete', id=req.id) }}" class="text-orange-50 bg-orange-900 hover:bg-orange-800 inline-flex items-center px-3 py-1 rounded-full mt-4 ml-32">
+                    Cancel Request
+                </a>
+
+              </div>
+
+
+            </div>
+            
+          </div>
+        </div>
+      </section>
+
+    {% endif %}
+    {% endfor %}
+
+
+  {% else %}
+  <div class="py-5 px-10 text-xl font-mono text-orange-900">
+    <div class="flex flex-col justify-center items-center mt-20">
+        <img src="/static/images/icons/email.png" class="h-20 w-20 mb-10">
+    <p >Looks like <b class="text-2xl text-black">{{ user.name }}</b> sent no requests!</p>
+    </div>
+</div>
+  {% endif %}
+
+{% endblock %}
